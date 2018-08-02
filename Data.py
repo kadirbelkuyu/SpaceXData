@@ -41,7 +41,6 @@ log olarak kaydedilecek kısım:
 import requests
 import json
 
-
 class SpaceX():
     rocket_name = None
     launch_year = None
@@ -57,10 +56,10 @@ class SpaceX():
     def menu(self):
         print("Welcome")
         menu = self.kontrol(input("""Please select your operation.
-			  0-for exit 
-                          1-Search by the rocket name 
-                          2- Search by the launch year 
-                          3-Search by the launch success              
+			            0-for exit 
+                        1-Search by the rocket name 
+                        2- Search by the launch year 
+                        3-Search by the launch success              
                           """))
 
         if menu == "1":
@@ -76,8 +75,7 @@ class SpaceX():
                         3- Show rockets with reuse success
                         """))
             self.rocket_success(success_type)
-	if menu=="0":
-	    break
+
 
     def kontrol(self, key):
         if int(key.isnumeric()) and int(key)<4 and int(key)>=0 :
@@ -94,7 +92,10 @@ class SpaceX():
         return self.data
 
     def name_search(self,keyword):
-        pass
+        self.load()
+        for i in self.data:
+            if i["mission_name"] == keyword:
+                return self.rockets_list.append(i)
 
     def year_search(self,keyword):
 
