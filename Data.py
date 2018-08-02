@@ -74,7 +74,7 @@ class SpaceX():
         if key.isnumeric() == True:
             return key
         else:
-            key = input("Pls use int")
+            key = input("Pls use int: ")
             return self.kontrol(key)
 
 
