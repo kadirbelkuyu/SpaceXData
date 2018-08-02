@@ -51,11 +51,11 @@ class SpaceX():
 
         while True:
             print("Welcome")
-            menu = input("""Please select your operation. 
+            menu = self.kontrol(input("""Please select your operation. 
                   1-Search by the rocket name 
                   2- Search by the launch year 
                   3-Search by the launch success              
-                  """)
+                  """))
             if menu == "1":
                 rocket_name = input("Please write the rocket name you want to search")
                 self.search(rocket_name)
@@ -63,12 +63,20 @@ class SpaceX():
                 launch_year = input("Please write the year you want to search")
                 self.search(launch_year)
             if menu == "3":
-                success_type = input("""
+                success_type = self.kontrol(input("""
                 1- Show rockets with launch success
                 2- Show rockets with land success
                 3- Show rockets with reuse success
-                """)
+                """))
                 self.rocket_success(success_type)
+
+    def kontrol(self,key):
+        if key.isnumeric() == True:
+            return key
+        else:
+            key = input("Pls use int")
+            return self.kontrol(key)
+
 
     def search(self,keyword):
         pass
