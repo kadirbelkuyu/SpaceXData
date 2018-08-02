@@ -123,7 +123,6 @@ class SpaceX():
 
 
 space = SpaceX()
-
 space.load()
 space.show_result()
 space.menu()
