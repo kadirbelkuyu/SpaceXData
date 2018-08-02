@@ -97,24 +97,24 @@ class SpaceX():
         self.load()
         for i in self.data:
             if i["mission_name"] == keyword:
-                return self.rockets_list.append(i)
-        self.show_result()
+                self.show_result(i)
+
     def year_search(self,keyword):
 
         self.load()
         for year in self.data:
             if year['launch_year'] == keyword:
-                self.rockets_list.append(year)
+                self.show_result(year)
         self.show_result()
 
-    def show_result(self):
 
-        for show in self.rockets_list:
-            self.data.append({
-                "Flight_number": self.data.get('flight_number')
-            })
-            return self
-
+    def show_result(self,i):
+        value = i['flight_number']
+        value2=i["mission_name"]
+        value3=i["launch_year"]
+        value4=i["rocket"]["rocket_name"]
+        self.rockets_list.append("flight number: {} mission name: {} launch year: {} rocket name: {} ".format(value,value2,value3,value4))
+        print(self.rockets_list)
 
 
     def rocket_success(self,success_type):
