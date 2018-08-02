@@ -99,7 +99,6 @@ class SpaceX():
             if i["mission_name"] == keyword:
                 self.show_result(i)
 
-
     def year_search(self,keyword):
 
         self.load()
@@ -122,12 +121,16 @@ class SpaceX():
         pass
 
 
+    def get_result(self):
+        return self.data()
 
 
 
 space = SpaceX()
-space.load()
 space.show_result()
-space.menu()
-space.load()
+
+# space.load()
+# space.show_result()
+# space.menu()
+# space.load()
 
