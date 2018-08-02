@@ -55,11 +55,11 @@ class SpaceX():
 
     def menu(self):
         print("Welcome")
-        menu = input("""Please select your operation. 
+        menu = self.kontrol(input("""Please select your operation. 
                           1-Search by the rocket name 
                           2- Search by the launch year 
                           3-Search by the launch success              
-                          """)
+                          """))
 
         if menu == "1":
             rocket_name = input("Please write the rocket name you want to search")
@@ -68,12 +68,19 @@ class SpaceX():
             launch_year = input("Please write the year you want to search")
             self.year_search(launch_year)
         if menu == "3":
-            success_type = input("""
+            success_type = self.kontrol(input("""
                         1- Show rockets with launch success
                         2- Show rockets with land success
                         3- Show rockets with reuse success
-                        """)
+                        """))
             self.rocket_success(success_type)
+
+    def kontrol(self, key):
+        if int(key.isnumeric()) and int(key)<4 and int(key)>0 :
+            return key
+        else:
+            key = input("Try again: ")
+            return self.kontrol(key)
 
     def load(self):
 
@@ -96,4 +103,5 @@ class SpaceX():
 
 
 space = SpaceX()
+space.menu()
 space.load()
