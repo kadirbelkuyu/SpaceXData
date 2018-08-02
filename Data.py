@@ -46,43 +46,54 @@ class SpaceX():
     rocket_name = None
     launch_year = None
     launch_success = None
+    rockets_list = []
+    data = []
 
     def __init__(self):
-
-        while True:
-            print("Welcome")
-            menu = self.kontrol(input("""Please select your operation. 
-                  1-Search by the rocket name 
-                  2- Search by the launch year 
-                  3-Search by the launch success              
-                  """))
-            if menu == "1":
-                rocket_name = input("Please write the rocket name you want to search")
-                self.search(rocket_name)
-            if menu == "2":
-                launch_year = input("Please write the year you want to search")
-                self.search(launch_year)
-            if menu == "3":
-                success_type = self.kontrol(input("""
-                1- Show rockets with launch success
-                2- Show rockets with land success
-                3- Show rockets with reuse success
-                """))
-                self.rocket_success(success_type)
-
-    def kontrol(self,key):
-        if key.isnumeric() == True:
-            return key
-        else:
-            key = input("Pls use int: ")
-            return self.kontrol(key)
+        self.session = requests.session()
 
 
-    def search(self,keyword):
+    def menu(self):
+        print("Welcome")
+        menu = input("""Please select your operation. 
+                          1-Search by the rocket name 
+                          2- Search by the launch year 
+                          3-Search by the launch success              
+                          """)
+
+        if menu == "1":
+            rocket_name = input("Please write the rocket name you want to search")
+            self.name_search(rocket_name)
+        if menu == "2":
+            launch_year = input("Please write the year you want to search")
+            self.year_search(launch_year)
+        if menu == "3":
+            success_type = input("""
+                        1- Show rockets with launch success
+                        2- Show rockets with land success
+                        3- Show rockets with reuse success
+                        """)
+            self.rocket_success(success_type)
+
+    def load(self):
+
+        self.data = self.session.get('https://api.spacexdata.com/v2/launches/')
+        content = self.data.content.decode("utf-8")
+        self.data = json.loads(content)
+        return self.data
+
+    def name_search(self,keyword):
+
         pass
+
+    def year_search(self):
+
+        pass
+
 
     def rocket_success(self,success_type):
         pass
 
 
-SpaceX()
+space = SpaceX()
+space.load()
