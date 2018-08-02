@@ -38,14 +38,44 @@ log olarak kaydedilecek kısım:
     gösterilen veri
 """
 
-
 import requests
 import json
 
 
-data = requests.get("https://api.spacexdata.com/v2/launches")
-content = data.content.decode("utf-8")
-data=json.loads(content)
-for i in data:
-    print(i.get("flight_number"))
-    print("\n")
+class SpaceX():
+    rocket_name = None
+    launch_year = None
+    launch_success = None
+
+    def __init__(self):
+        self.rocket_name = None
+        self.launch_year = None
+        self.launch_success = None
+        print("Welcome")
+        menu = input("""Please select your operation. 
+              1-Search by the rocket name 
+              2- Search by the launch year 
+              3-Search by the launch success              
+              """)
+        if menu == "1":
+            rocket_name = input("Please write the rocket name you want to search")
+            self.search(rocket_name)
+        if menu == "2":
+            launch_year = input("Please write the year you want to search")
+            self.search(launch_year)
+        if menu == "3":
+            success_type = input("""
+            1- Show rockets with launch success
+            2- Show rockets with land success
+            3- Show rockets with reuse success
+            """)
+            self.rocket_success(success_type)
+
+    def search(self,keyword):
+        pass
+
+    def rocket_success(self,success_type):
+        pass
+
+
+SpaceX()
