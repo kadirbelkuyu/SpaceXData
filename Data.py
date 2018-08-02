@@ -1,5 +1,5 @@
-"""
-menu:
+
+"""menu:
     1-İsme göre arama yap, roket isminin sonuçlarını getir
     2-Tarihe göre arama yap, tarih aralığı veya yıl içinde olan tüm roket fırlatmalarını getir
     3-Başarı durumuna göre arama yap:
@@ -55,10 +55,11 @@ class SpaceX():
 
     def menu(self):
         print("Welcome")
-        menu = self.kontrol(input("""Please select your operation. 
-                          1-Search by the rocket name 
-                          2- Search by the launch year 
-                          3-Search by the launch success              
+        menu = self.kontrol(input("""Please select your operation.
+			            0-for exit 
+                        1-Search by the rocket name 
+                        2- Search by the launch year 
+                        3-Search by the launch success              
                           """))
 
         if menu == "1":
@@ -75,8 +76,9 @@ class SpaceX():
                         """))
             self.rocket_success(success_type)
 
+
     def kontrol(self, key):
-        if int(key.isnumeric()) and int(key)<4 and int(key)>0 :
+        if int(key.isnumeric()) and int(key)<4 and int(key)>=0 :
             return key
         else:
             key = input("Try again: ")
@@ -90,7 +92,10 @@ class SpaceX():
         return self.data
 
     def name_search(self,keyword):
-        pass
+        self.load()
+        for i in self.data:
+            if i["mission_name"] == keyword:
+                return self.rockets_list.append(i)
 
     def year_search(self,keyword):
 
@@ -115,3 +120,6 @@ class SpaceX():
 space = SpaceX()
 space.load()
 space.show_result()
+space.menu()
+space.load()
+
