@@ -37,3 +37,15 @@ log olarak kaydedilecek kısım:
     çağrılan veri
     gösterilen veri
 """
+
+
+import requests
+import json
+
+
+data = requests.get("https://api.spacexdata.com/v2/launches")
+content = data.content.decode("utf-8")
+data=json.loads(content)
+for i in data:
+    print(i.get("flight_number"))
+    print("\n")
