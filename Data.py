@@ -50,7 +50,8 @@ class SpaceX():
 
     def __init__(self):
         self.session = requests.session()
-
+        while True:
+            self.menu()
 
     def menu(self):
         print("Welcome")
@@ -89,10 +90,9 @@ class SpaceX():
         return self.data
 
     def name_search(self,keyword):
-
         pass
 
-    def year_search(self):
+    def year_search(self,keyword):
 
         pass
 
