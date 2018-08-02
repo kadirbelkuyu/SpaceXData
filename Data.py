@@ -114,15 +114,9 @@ class SpaceX():
         value2=i["mission_name"]
         value3=i["launch_year"]
         value4=i["rocket"]["rocket_name"]
-        self.rockets_list.append("flight_number: {} mission_name: {} launch_year: {} rocket_name: {} ".format(value,value2,value3,value4))
+        self.rockets_list.append("flight number: {} mission name: {} launch year: {} rocket name: {} ".format(value,value2,value3,value4))
         print(self.rockets_list)
 
-
-        #     a=self.rockets_list.append(SpaceX**({
-        #         "Flight_number": self.data.get('flight_number')
-        #     }))
-        #     return show
-        # print(a)
 
     def rocket_success(self,success_type):
         pass
