@@ -41,7 +41,6 @@ log olarak kaydedilecek kısım:
 import requests
 import json
 
-
 class SpaceX():
     rocket_name = None
     launch_year = None
