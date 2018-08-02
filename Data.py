@@ -1,5 +1,5 @@
-"""
-menu:
+
+"""menu:
     1-İsme göre arama yap, roket isminin sonuçlarını getir
     2-Tarihe göre arama yap, tarih aralığı veya yıl içinde olan tüm roket fırlatmalarını getir
     3-Başarı durumuna göre arama yap:
@@ -56,7 +56,8 @@ class SpaceX():
 
     def menu(self):
         print("Welcome")
-        menu = self.kontrol(input("""Please select your operation. 
+        menu = self.kontrol(input("""Please select your operation.
+			  0-for exit 
                           1-Search by the rocket name 
                           2- Search by the launch year 
                           3-Search by the launch success              
@@ -75,9 +76,11 @@ class SpaceX():
                         3- Show rockets with reuse success
                         """))
             self.rocket_success(success_type)
+	if menu=="0":
+	    break
 
     def kontrol(self, key):
-        if int(key.isnumeric()) and int(key)<4 and int(key)>0 :
+        if int(key.isnumeric()) and int(key)<4 and int(key)>=0 :
             return key
         else:
             key = input("Try again: ")
