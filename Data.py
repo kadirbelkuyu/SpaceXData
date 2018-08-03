@@ -56,10 +56,10 @@ class SpaceX():
     def menu(self):
         print("Welcome")
         menu = self.kontrol(input("""Please select your operation.
-			            0-for exit 
                         1-Search by the rocket name 
                         2- Search by the launch year 
-                        3-Search by the launch success              
+                        3-Search by the launch success    
+                        4-for exit           
                           """))
 
         if menu == "1":
@@ -75,12 +75,15 @@ class SpaceX():
                         3- Show rockets with reuse success
                         """))
             self.rocket_success(success_type)
+        elif menu == "4":
+            #burada ne yaparsak while True calismayi birakir ?
+            pass
         else:
             print("Error")
 
 
     def kontrol(self, key):
-        if int(key.isnumeric()) and int(key)<4 and int(key)>=0 :
+        if int(key.isnumeric()) and int(key)<5 and int(key)>=0 :
             return key
         else:
             key = input("Try again: ")
