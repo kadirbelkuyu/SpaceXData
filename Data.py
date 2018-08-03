@@ -116,14 +116,50 @@ class SpaceX():
         self.rockets_list.append("flight number: {} mission name: {} launch year: {} rocket name: {} ".format(value,value2,value3,value4))
         print(self.rockets_list)
 
-
-    def rocket_success(self,success_type):
-        pass
-
-
+    #bu fonksiyona neden gerek duyduk ?
     def get_result(self):
         return self.data()
 
+    def success_control1(self, data):
+        data = self.data
+
+        for rocket in data:
+            for roc in rocket:
+                if roc.get("launch_success") == True:
+                    return rocket
+
+    def success_control2(self, data):
+        data = self.data
+
+        for rocket in data:
+            for roc in rocket:
+                if roc.get("reused") == True:
+                    return rocket
+
+    def rocket_success(self, success_type):
+        self.load()
+        if success_type == '1':
+            ctype = "launch_success"
+            # print(list(filter(self.success_control,self.data,ctype)))
+            print(list(filter(lambda rocket: rocket.get(ctype) == True, self.data)))
+
+        elif success_type == '2':
+            ctype = "land_success"
+            # print(list(filter(lambda rocket: rocket.get(ctype) == True, self.data)))
+            print(list(filter(
+                self.success_control1,
+                self.data
+            )))
+
+
+        elif success_type == '3':
+
+            ctype = "reused"
+
+            print(list(filter(
+                self.success_control1,
+                self.data
+            )))
 
 
 space = SpaceX()
