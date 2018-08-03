@@ -100,7 +100,10 @@ class SpaceX():
         self.load()
         for i in self.data:
             if i["mission_name"] == keyword:
-                self.show_result(i)
+                self.rockets_list.append(i)
+
+        for all in self.rockets_list:
+            self.show_result(all)
 
     def year_search(self,keyword):
 
@@ -108,70 +111,70 @@ class SpaceX():
         for year in self.data:
             if year['launch_year'] == keyword:
                 self.show_result(year)
-        self.show_result()
+            else:
+                print("No results found")
+
 
 
     def show_result(self,i):
+
         value = i['flight_number']
         value2=i["mission_name"]
         value3=i["launch_year"]
         value4=i["rocket"]["rocket_name"]
-        self.rockets_list.append("flight number: {} mission name: {} launch year: {} rocket name: {} ".format(value,value2,value3,value4))
-        print(self.rockets_list)
+        print(
+            "flight number: {}  mission name: {} launch year: {} rocket name: {} ".format(value, value2, value3,
+                                                                                          value4))
+        #print(self.rockets_list)
+        #self.rockets_list.append("flight number: {}  mission name: {} launch year: {} rocket name: {} ".format(value,value2,value3,value4))
+        #print(self.rockets_list)
 
     #bu fonksiyona neden gerek duyduk ?
     def get_result(self):
         return self.data()
 
-    def success_control1(self, data):
-        data = self.data
+
+    #find land_success = True
+    def success_control1(self, rocket):
         #ic ice liste ve sozluk oldugu icin rocket sozlugunun first_stage listesinde bir sozluk keyi olan land_successe ulasamadim, devam edicem
-        for rocket in data:
-            ls=rocket.get("rocket")
-            for roc in ls:
-                icic = roc.get("first_stage")
-                print(icic)
-                if icic.get("land_success") == True:
-                    return rocket
+        ls=rocket.get("rocket").get("first_stage").get("cores")
+        for roc in ls:
+            icic = roc.get("land_success")
+            if icic == True:
+                return roc
 
-
-
-    def success_control2(self, data):
-        data = self.data
-
-        for rocket in data:
-            for roc in rocket:
-                if roc.get("reused") == True:
-                    return rocket
+    # find reused = True
+    def success_control2(self, rocket):
+        ls = rocket.get("rocket").get("first_stage").get("cores")
+        for roc in ls:
+            icic = roc.get("reused")
+            if icic == True:
+                return roc
 
     def rocket_success(self, success_type):
         self.load()
         if success_type == '1':
-            ctype = "launch_success"
-            # print(list(filter(self.success_control,self.data,ctype)))
             print(list(filter(lambda rocket: rocket.get(ctype) == True, self.data)))
 
         elif success_type == '2':
-            ctype = "land_success"
-            # print(list(filter(lambda rocket: rocket.get(ctype) == True, self.data)))
-            print(list(filter(
+            sonuc =list(filter(
                 self.success_control1,
                 self.data
-            )))
-
+            ))
+            for all in sonuc:
+                self.show_result(all)
 
         elif success_type == '3':
-
-            ctype = "reused"
-
-            print(list(filter(
-                self.success_control1,
+            sonuc = list(filter(
+                self.success_control2,
                 self.data
-            )))
+            ))
+            for all in sonuc:
+                self.show_result(all)
 
 
 space = SpaceX()
-space.show_result()
+
 
 # space.load()
 # space.show_result()
