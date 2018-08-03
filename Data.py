@@ -1,5 +1,5 @@
-"""
-menu:
+
+"""menu:
     1-İsme göre arama yap, roket isminin sonuçlarını getir
     2-Tarihe göre arama yap, tarih aralığı veya yıl içinde olan tüm roket fırlatmalarını getir
     3-Başarı durumuna göre arama yap:
@@ -41,7 +41,6 @@ log olarak kaydedilecek kısım:
 import requests
 import json
 
-
 class SpaceX():
     rocket_name = None
     launch_year = None
@@ -56,28 +55,32 @@ class SpaceX():
 
     def menu(self):
         print("Welcome")
-        menu = self.kontrol(input("""Please select your operation. 
-                          1-Search by the rocket name 
-                          2- Search by the launch year 
-                          3-Search by the launch success              
+        menu = self.kontrol(input("""Please select your operation.
+			            0-for exit 
+                        1-Search by the rocket name 
+                        2- Search by the launch year 
+                        3-Search by the launch success              
                           """))
 
         if menu == "1":
             rocket_name = input("Please write the rocket name you want to search")
             self.name_search(rocket_name)
-        if menu == "2":
+        elif menu == "2":
             launch_year = input("Please write the year you want to search")
             self.year_search(launch_year)
-        if menu == "3":
+        elif menu == "3":
             success_type = self.kontrol(input("""
                         1- Show rockets with launch success
                         2- Show rockets with land success
                         3- Show rockets with reuse success
                         """))
             self.rocket_success(success_type)
+        else:
+            print("Error")
+
 
     def kontrol(self, key):
-        if int(key.isnumeric()) and int(key)<4 and int(key)>0 :
+        if int(key.isnumeric()) and int(key)<4 and int(key)>=0 :
             return key
         else:
             key = input("Try again: ")
@@ -91,17 +94,79 @@ class SpaceX():
         return self.data
 
     def name_search(self,keyword):
-        pass
+        self.load()
+        for i in self.data:
+            if i["mission_name"] == keyword:
+                self.show_result(i)
 
     def year_search(self,keyword):
 
-        pass
+        self.load()
+        for year in self.data:
+            if year['launch_year'] == keyword:
+                self.show_result(year)
+        self.show_result()
 
 
-    def rocket_success(self,success_type):
-        pass
+    def show_result(self,i):
+        value = i['flight_number']
+        value2=i["mission_name"]
+        value3=i["launch_year"]
+        value4=i["rocket"]["rocket_name"]
+        self.rockets_list.append("flight number: {} mission name: {} launch year: {} rocket name: {} ".format(value,value2,value3,value4))
+        print(self.rockets_list)
+
+
+    def get_result(self):
+        return self.data()
+
+    def success_control1(self, data):
+        data = self.data
+
+        for rocket in data:
+            for roc in rocket:
+                if roc.get("launch_success") == True:
+                    return rocket
+
+    def success_control2(self, data):
+        data = self.data
+
+        for rocket in data:
+            for roc in rocket:
+                if roc.get("reused") == True:
+                    return rocket
+
+    def rocket_success(self, success_type):
+        self.load()
+        if success_type == '1':
+            ctype = "launch_success"
+            # print(list(filter(self.success_control,self.data,ctype)))
+            print(list(filter(lambda rocket: rocket.get(ctype) == True, self.data)))
+
+        elif success_type == '2':
+            ctype = "land_success"
+            # print(list(filter(lambda rocket: rocket.get(ctype) == True, self.data)))
+            print(list(filter(
+                self.success_control1,
+                self.data
+            )))
+
+
+        elif success_type == '3':
+
+            ctype = "reused"
+
+            print(list(filter(
+                self.success_control1,
+                self.data
+            )))
 
 
 space = SpaceX()
-space.menu()
-space.load()
+space.show_result()
+
+# space.load()
+# space.show_result()
+# space.menu()
+# space.load()
+
