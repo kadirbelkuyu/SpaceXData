@@ -98,21 +98,26 @@ class SpaceX():
 
     def name_search(self,keyword):
         self.load()
+        exists = False
         for i in self.data:
             if i["mission_name"] == keyword:
-                self.rockets_list.append(i)
+                self.show_result(i)
+                exists=True
+        if exists ==False:
+            print("No results found")
 
-        for all in self.rockets_list:
-            self.show_result(all)
 
     def year_search(self,keyword):
 
         self.load()
+        exists= False
         for year in self.data:
             if year['launch_year'] == keyword:
                 self.show_result(year)
-            else:
-                print("No results found")
+                exists=True
+        if exists ==False:
+            print("No results found")
+
 
 
 
