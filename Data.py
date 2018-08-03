@@ -40,6 +40,7 @@ log olarak kaydedilecek kısım:
 
 import requests
 import json
+import sys
 
 class SpaceX():
     rocket_name = None
@@ -77,7 +78,7 @@ class SpaceX():
             self.rocket_success(success_type)
         elif menu == "4":
             #burada ne yaparsak while True calismayi birakir ?
-            pass
+            sys.exit("Byeeee")
         else:
             print("Error")
 
