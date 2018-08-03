@@ -125,11 +125,16 @@ class SpaceX():
 
     def success_control1(self, data):
         data = self.data
-
+        #ic ice liste ve sozluk oldugu icin rocket sozlugunun first_stage listesinde bir sozluk keyi olan land_successe ulasamadim, devam edicem
         for rocket in data:
-            for roc in rocket:
-                if roc.get("launch_success") == True:
+            ls=rocket.get("rocket")
+            for roc in ls:
+                icic = roc.get("first_stage")
+                print(icic)
+                if icic.get("land_success") == True:
                     return rocket
+
+
 
     def success_control2(self, data):
         data = self.data
